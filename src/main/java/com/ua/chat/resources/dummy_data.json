@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "username": "kp1",
+        "text": "hello world1",
+        "date": "2016-10-25T19:30+0200"
+    },
+    {
+      "id": 2,
+      "username": "kp2",
+      "text": "hello world2",
+      "date": "2016-10-25T19:30+0200"
+    },
+    {
+      "id": 3,
+      "username": "kp3",
+      "text": "hello world3",
+      "date": "2016-10-25T19:30+0200"
+    },
+    {
+      "id": 4,
+      "username": "kp4",
+      "text": "hello world4",
+      "date": "2016-10-25T19:30+0200"
+    }
+]
