@@ -1,10 +1,17 @@
 package com.ua.chat;
 
 import com.ua.chat.core.ChatService;
+import com.ua.chat.core.Person;
+import com.ua.chat.db.PersonDAO;
 //import com.ua.chat.db.ChatDB;
 import com.ua.chat.resources.ChatResource;
+import com.ua.chat.resources.PersonResource;
+
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
@@ -28,6 +35,14 @@ public class ChatServiceApplication extends Application<ChatServiceConfiguration
     public static void main(final String[] args) throws Exception {
         new ChatServiceApplication().run(args);
     }
+    
+    private final HibernateBundle<ChatServiceConfiguration> hibernateBundle =
+            new HibernateBundle<ChatServiceConfiguration>(Person.class) {
+                @Override
+                public DataSourceFactory getDataSourceFactory(ChatServiceConfiguration configuration) {
+                    return configuration.getDataSourceFactory();
+                }
+            };
 
     @Override
     public String getName() {
@@ -43,6 +58,13 @@ public class ChatServiceApplication extends Application<ChatServiceConfiguration
                 return configuration.swaggerBundleConfiguration;
             }
         });
+        bootstrap.addBundle(new MigrationsBundle<ChatServiceConfiguration>() {
+            public DataSourceFactory getDataSourceFactory(ChatServiceConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+        });
+        bootstrap.addBundle(hibernateBundle);
+        
     }
 
     @Override
@@ -51,7 +73,7 @@ public class ChatServiceApplication extends Application<ChatServiceConfiguration
         // TODO: implement application
        // DateFormat eventDateFormat = new SimpleDateFormat(configuration.getDateFormat());
        // environment.getObjectMapper().setDateFormat(eventDateFormat);
-
+    	final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
         final DataSource dataSource =
                 configuration.getDataSourceFactory().build(environment.metrics(), SQL);
         System.out.println("11111111111111111111111111111111");
@@ -66,6 +88,7 @@ public class ChatServiceApplication extends Application<ChatServiceConfiguration
        // ChatResource chatResource = new ChatResource(chatDB);
        // environment.jersey().register(chatResource);
         environment.jersey().register(new ChatResource(dbi.onDemand(ChatService.class)));
+        environment.jersey().register(new PersonResource(dao));
 
 
 

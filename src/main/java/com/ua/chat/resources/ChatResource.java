@@ -4,6 +4,8 @@ import com.ua.chat.api.ChatMessageResponse;
 import com.ua.chat.api.Message;
 import com.ua.chat.api.UserMessageResponse;
 import com.ua.chat.core.ChatService;
+import com.ua.chat.core.Person;
+
 //import com.ua.chat.db.ChatDB;
 import io.swagger.annotations.*;
 
@@ -95,4 +97,8 @@ public class ChatResource {
         //create aa new id and return
         return Response.ok(chatMessageResponse1).build();
     }
+    
+    
+    
+    
 }
