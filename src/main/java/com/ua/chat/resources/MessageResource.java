@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -22,7 +21,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
 
 @SuppressWarnings("RSReferenceInspection")
 @Path("/message")
@@ -50,7 +48,6 @@ public class MessageResource {
             @ApiParam(value = "message to be created", required = true)
             @Valid Message chatMessageResponse
     ) {
-		        //create aa new id and return
     	messageDAO.create(chatMessageResponse);
         return Response.ok(chatMessageResponse.getId()).build();
     }
@@ -68,9 +65,9 @@ public class MessageResource {
     @ApiOperation(value = "Returns by id .")
     @Path("/findById/")
     @UnitOfWork
-    public List<Message> getTextById(
+    public Optional<Message> getTextById(
             @ApiParam(value = "Message for a Id", required = true)
-            @QueryParam("id") long id) {
+            @QueryParam("id") int id) {
         return messageDAO.findById(id);
 
     }
@@ -82,7 +79,12 @@ public class MessageResource {
     public List<Message> getTextsByName(
             @ApiParam(value = "Message for a Name", required = true)
             @QueryParam("name") String name) {
-        return messageDAO.findByName(name);
+
+
+         List<Message> messages = messageDAO.findByName(name);
+
+
+        return messages;
 
     }
 

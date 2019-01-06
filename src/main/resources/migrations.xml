@@ -15,6 +15,8 @@
                 <constraints nullable="false"/>
             </column>
             <column name="text" type="varchar(255)"/>
+            <column name="timeout" type="integer"/>
+            <column name="expired" type="boolean"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

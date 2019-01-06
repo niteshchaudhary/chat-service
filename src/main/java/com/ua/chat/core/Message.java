@@ -1,5 +1,6 @@
 package com.ua.chat.core;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +30,6 @@ import java.util.Objects;
     })
 public class Message {
     @Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "username", nullable = false)
@@ -38,12 +38,20 @@ public class Message {
     @Column(name = "text", nullable = false)
     private String text;
 
+    @Column(name = "timeout")
+    private Integer timeout;
+
+    @Column(name = "expired")
+    private Boolean expired = false;
+
     public Message() {
     }
 
-    public Message(String username, String text) {
+    public Message(String username, String text, Integer timeout, Boolean expired) {
         this.username = username;
         this.text = text;
+        this.timeout = timeout;
+        this.expired = expired;
     }
 
     public int getId() {
@@ -70,6 +78,22 @@ public class Message {
         this.text = text;
     }
 
+    public Integer getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
+    }
+
+    public Boolean getExpired() {
+        return expired;
+    }
+
+    public void setExpired(Boolean expired) {
+        this.expired = expired;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -83,11 +107,13 @@ public class Message {
 
         return Objects.equals(this.id, that.id) &&
                 Objects.equals(this.username, that.username) &&
-                Objects.equals(this.text, that.text);
+                Objects.equals(this.text, that.text) &&
+                Objects.equals(this.timeout, that.timeout) &&
+                Objects.equals(this.expired, that.expired);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, text);
+        return Objects.hash(id, username, text, timeout, expired);
     }
 }

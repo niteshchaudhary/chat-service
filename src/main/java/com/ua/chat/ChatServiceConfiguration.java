@@ -10,8 +10,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 public class ChatServiceConfiguration extends Configuration {
-    // TODO: implement service configuration
-
     @NotEmpty
     private String dateFormat;
 
