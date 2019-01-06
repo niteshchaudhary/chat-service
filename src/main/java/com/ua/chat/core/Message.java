@@ -3,8 +3,7 @@ package com.ua.chat.core;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,7 +21,11 @@ import java.util.Objects;
         @NamedQuery(
             name = "com.ua.chat.core.Message.findByName",
             query = "SELECT p FROM Message p where p.username LIKE :username"
-        )
+        ),
+        @NamedQuery(
+                name = "com.ua.chat.core.Message.findById",
+                query = "SELECT p FROM Message p where p.username = :id"
+            )
     })
 public class Message {
     @Id

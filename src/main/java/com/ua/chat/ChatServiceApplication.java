@@ -1,7 +1,7 @@
 package com.ua.chat;
 
 import com.ua.chat.core.Message;
-import com.ua.chat.db.MessageDAO;
+import com.ua.chat.db.ChatMessageDAO;
 
 import com.ua.chat.resources.MessageResource;
 
@@ -62,7 +62,7 @@ public class ChatServiceApplication extends Application<ChatServiceConfiguration
         // TODO: implement application
        // DateFormat eventDateFormat = new SimpleDateFormat(configuration.getDateFormat());
        // environment.getObjectMapper().setDateFormat(eventDateFormat);
-    	final MessageDAO dao = new MessageDAO(hibernateBundle.getSessionFactory());
+    	final ChatMessageDAO dao = new ChatMessageDAO(hibernateBundle.getSessionFactory());
         final DataSource dataSource =
                 configuration.getDataSourceFactory().build(environment.metrics(), SQL);
         System.out.println("11111111111111111111111111111111");

@@ -1,17 +1,27 @@
 package com.ua.chat.resources;
 
-import com.ua.chat.core.Message;
-import com.ua.chat.db.MessageDAO;
-
-import io.dropwizard.hibernate.UnitOfWork;
-import io.swagger.annotations.*;
-
-import javax.validation.Valid;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.ua.chat.core.Message;
+import com.ua.chat.db.ChatMessageDAO;
+
+import io.dropwizard.hibernate.UnitOfWork;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 
 @SuppressWarnings("RSReferenceInspection")
@@ -21,9 +31,9 @@ import java.util.Optional;
 public class MessageResource {
 
 
-	 private final MessageDAO messageDAO;
+	 private final ChatMessageDAO messageDAO;
 
-	    public MessageResource(MessageDAO messageDAO) {
+	    public MessageResource(ChatMessageDAO messageDAO) {
 	        this.messageDAO = messageDAO;
 	    }
 
@@ -49,26 +59,24 @@ public class MessageResource {
     @ApiOperation(value = "Returns all messages.")
     @Path("/all/")
     @UnitOfWork
-    public List<Message> getTexts(
-            @ApiParam(value = "Corresponding user's messages", required = true)
-            @PathParam("userName") String userName) {
+    public List<Message> getTexts() {
     	return messageDAO.findAll();
 
     }
 
     @GET
-    @ApiOperation(value = "Returns all messages.")
+    @ApiOperation(value = "Returns by id .")
     @Path("/findById/")
     @UnitOfWork
-    public Optional<Message> getTextById(
+    public List<Message> getTextById(
             @ApiParam(value = "Message for a Id", required = true)
-            @QueryParam("id") int id) {
+            @QueryParam("id") long id) {
         return messageDAO.findById(id);
 
     }
 
     @GET
-    @ApiOperation(value = "Returns all messages.")
+    @ApiOperation(value = "Returns  messages by name")
     @Path("/findByName/")
     @UnitOfWork
     public List<Message> getTextsByName(

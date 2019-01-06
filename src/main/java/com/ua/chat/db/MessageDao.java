@@ -2,14 +2,15 @@ package com.ua.chat.db;
 
 import java.util.List;
 
-import com.ua.chat.api.Message;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
-@RegisterMapper(MessageMapper.class)
+import com.ua.chat.core.Message;
+
+@RegisterMapper(MessageMapper.class )
 public interface MessageDao {
 
     @SqlQuery("select * from message;")
