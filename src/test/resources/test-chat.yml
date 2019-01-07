@@ -1,0 +1,25 @@
+server:
+  rootPath: /api/*
+dateFormat: yyyy-MM-dd'T'HH:mmZ
+
+database:
+  driverClass: org.h2.Driver
+  user: sa
+  password: sa
+  url: jdbc:h2:./target/test-chat
+
+swagger:
+  resourcePackage: com.ua.chat.resources
+
+# Logging settings.
+logging:
+  level: INFO
+  appenders:
+    - type: console
+    - type: file
+      currentLogFilename: './logs/application.log'
+      archivedLogFilenamePattern: './logs/application-%d-%i.log.gz'
+      archive: true
+      archivedFileCount: 7
+      maxFileSize: '1mb'
+

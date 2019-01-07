@@ -80,11 +80,8 @@ public class MessageResource {
             @ApiParam(value = "Message for a Name", required = true)
             @QueryParam("name") String name) {
 
+         return messageDAO.findByName(name);
 
-         List<Message> messages = messageDAO.findByName(name);
-
-
-        return messages;
 
     }
 

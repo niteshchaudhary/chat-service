@@ -1,5 +1,6 @@
 package com.ua.chat;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.ua.chat.core.Message;
 import com.ua.chat.db.ChatMessageDAO;
 
@@ -53,19 +54,18 @@ public class ChatServiceApplication extends Application<ChatServiceConfiguration
         });
         bootstrap.addBundle(hibernateBundle);
 
+        bootstrap.getObjectMapper()
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
     }
 
     @Override
     public void run(final ChatServiceConfiguration configuration,
                     final Environment environment) throws Exception {
-        // TODO: implement application
         DateFormat eventDateFormat = new SimpleDateFormat(configuration.getDateFormat());
         environment.getObjectMapper().setDateFormat(eventDateFormat);
     	final ChatMessageDAO dao = new ChatMessageDAO(hibernateBundle.getSessionFactory());
-
         environment.jersey().register(new MessageResource(dao));
-
-
 
     }
 

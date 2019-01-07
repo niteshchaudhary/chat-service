@@ -17,6 +17,7 @@
             <column name="text" type="varchar(255)"/>
             <column name="timeout" type="integer"/>
             <column name="expired" type="boolean"/>
+            <column name="expirationdate" type="datetime"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

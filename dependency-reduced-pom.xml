@@ -54,6 +54,17 @@
         </configuration>
       </plugin>
       <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <skipIfEmpty>true</skipIfEmpty>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.1</version>
+      </plugin>
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.6.1</version>
         <configuration>
@@ -84,6 +95,33 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>pom-enforcer</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <compound>
+                  <providedDependencies>org.projectlombok:lombok</providedDependencies>
+                  <testDependencies>junit:junit,nl.jqno.equalsverifier:equalsverifier,org.assertj:assertj-core,org.hamcrest:hamcrest-core,org.mockito:mockito-core</testDependencies>
+                </compound>
+                <requireUpperBoundDeps />
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.ferstl</groupId>
+            <artifactId>pedantic-pom-enforcers</artifactId>
+            <version>1.2.0</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>

@@ -12,6 +12,7 @@ import org.hibernate.query.Query;
 import com.ua.chat.core.Message;
 
 import io.dropwizard.hibernate.AbstractDAO;
+import org.joda.time.DateTime;
 
 public class ChatMessageDAO extends AbstractDAO<Message> {
     public ChatMessageDAO(SessionFactory factory) {
@@ -29,7 +30,9 @@ public class ChatMessageDAO extends AbstractDAO<Message> {
 
         if (message.getTimeout() == 0) {
             message.setTimeout(60);
+            message.setExpirationdate(DateTime.now().plusSeconds(60));
         }
+        message.setExpirationdate(DateTime.now().plusSeconds(message.getTimeout()));
         return persist(message);
     }
 

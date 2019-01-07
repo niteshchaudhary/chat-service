@@ -1,6 +1,6 @@
 package com.ua.chat.core;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.joda.time.DateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,14 +44,18 @@ public class Message {
     @Column(name = "expired")
     private Boolean expired = false;
 
+    @Column(name = "expirationdate")
+    private DateTime expirationdate;
+
     public Message() {
     }
 
-    public Message(String username, String text, Integer timeout, Boolean expired) {
+    public Message(String username, String text, Integer timeout, Boolean expired, DateTime expirationdate) {
         this.username = username;
         this.text = text;
         this.timeout = timeout;
         this.expired = expired;
+        this.expirationdate = expirationdate;
     }
 
     public int getId() {
@@ -94,6 +98,14 @@ public class Message {
         this.expired = expired;
     }
 
+    public Boolean getExpirationdate() {
+        return expired;
+    }
+
+    public void setExpirationdate(DateTime expirationdate) {
+        this.expirationdate = expirationdate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -109,11 +121,12 @@ public class Message {
                 Objects.equals(this.username, that.username) &&
                 Objects.equals(this.text, that.text) &&
                 Objects.equals(this.timeout, that.timeout) &&
-                Objects.equals(this.expired, that.expired);
+                Objects.equals(this.expired, that.expired) &&
+                Objects.equals(this.expirationdate, that.expirationdate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, text, timeout, expired);
+        return Objects.hash(id, username, text, timeout, expired, expirationdate);
     }
 }
