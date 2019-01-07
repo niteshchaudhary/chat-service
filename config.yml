@@ -12,7 +12,7 @@ swagger:
 
 database:
 
-  # the name of your JDBC driver
+  # the name of JDBC driver
   driverClass: org.h2.Driver
 
   # the username
