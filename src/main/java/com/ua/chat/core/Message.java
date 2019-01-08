@@ -98,8 +98,8 @@ public class Message {
         this.expired = expired;
     }
 
-    public Boolean getExpirationdate() {
-        return expired;
+    public DateTime getExpirationdate() {
+        return expirationdate;
     }
 
     public void setExpirationdate(DateTime expirationdate) {
